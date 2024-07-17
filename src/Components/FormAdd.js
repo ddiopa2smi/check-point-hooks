@@ -2,17 +2,11 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-function FormAdd(handleSubmit) {
+function FormAdd(values,setValues,handleSubmit,handleInputChange) {
 
-    const [newMovie, setNewMovie] = useState({
-        titre: '',
-        description: '',
-        posterURL: '',
-        note: 0
-    })
 
     const onInputChange = (e) => {
-        setNewMovie({ ...newMovie, [e.target.name]: e.target.value })
+        setNewMovie({ ...values, [e.target.name]: e.target.value })
     }
 
     return (
@@ -23,12 +17,13 @@ function FormAdd(handleSubmit) {
                     type="text"
                     name='titre'
                     value={newMovie.titre}
-                    onChange={(e) => onInputChange(e)} />
+                    onChange={handleInputChange} />
             </Form.Group>
             <Form.Group className="mb-3" >
                 <Form.Label>Rate</Form.Label>
                 <Form.Control
-                    type="text"
+                    required
+                    type="email"
                     name='note'
                     value={newMovie.note}
                     onChange={(e) => onInputChange(e)} />
@@ -46,7 +41,8 @@ function FormAdd(handleSubmit) {
                 <Form.Control type="file"
                     name='posterURL'
                     value={newMovie.posterURL}
-                    onChange={(e) => onInputChange(e)} />
+                // onChange={(e) => onInputChange(e)} 
+                />
             </Form.Group>
 
             <Button variant="outline-primary" type='submit' size='sm'>

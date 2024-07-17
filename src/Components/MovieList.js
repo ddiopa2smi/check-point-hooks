@@ -8,7 +8,6 @@ import MovieCard from './MovieCard';
 import SearchZone from './SearchZone';
 import InfoHeader from './InfoHeader';
 import Popup from './Popup';
-import FormAdd from './FormAdd';
 import { Button, Form } from 'react-bootstrap';
 
 const MovieList = () => {
@@ -22,8 +21,8 @@ const MovieList = () => {
     const [newMovie, setNewMovie] = useState({
         titre: '',
         description: '',
-        posterURL: '',
-        note: 0
+        posterURL: 'img/avatar.avif',
+        note: 5
     })
 
     useEffect((data) => {
@@ -102,6 +101,8 @@ const MovieList = () => {
             <Form.Group className="mb-3">
                 <Form.Label>Title</Form.Label>
                 <Form.Control
+                    size="sm"
+                    required
                     type="text"
                     name='titre'
                     value={newMovie.titre}
@@ -110,7 +111,11 @@ const MovieList = () => {
             <Form.Group className="mb-3" >
                 <Form.Label>Rate</Form.Label>
                 <Form.Control
-                    type="text"
+                    size="sm"
+                    required
+                    min={5}
+                    max={10}
+                    type="number"
                     name='note'
                     value={newMovie.note}
                     onChange={(e) => onInputChange(e)} />
@@ -126,9 +131,11 @@ const MovieList = () => {
             <Form.Group className="mb-3" >
                 <Form.Label>Poster</Form.Label>
                 <Form.Control type="file"
+                    size="sm"
                     name='posterURL'
-                    value={newMovie.posterURL}
-                    onChange={(e) => onInputChange(e)} />
+                // value={newMovie.posterURL}
+                // onChange={(e) => onInputChange(e)}
+                />
             </Form.Group>
 
             <Button variant="outline-primary" type='submit' size='sm'>
@@ -142,7 +149,7 @@ const MovieList = () => {
             <Container>
                 <InfoHeader variant='primary'
                     style={{ fontWeight: 'bolder', marginTop: '12px' }}>
-                    Liste des films
+                    <h3>Liste des films</h3>
                 </InfoHeader>
                 <SearchZone
                     onchangeTitle={handleFilterByTitle}
@@ -160,6 +167,7 @@ const MovieList = () => {
                                 description={f.description}
                                 posterURL={f.posterURL}
                                 note={f.note}
+                                trailerLink={f.trailerLink}
                             />
                         </Col>
                     )}
